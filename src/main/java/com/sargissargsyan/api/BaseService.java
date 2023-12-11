@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sargissargsyan.models.User;
+import com.sargissargsyan.utils.MapBuilder;
 import com.sargissargsyan.utils.Parser;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +19,8 @@ import okhttp3.*;
 @Log4j2
 public class BaseService {
     private static final String BASE_URL = "http://localhost:9000/api/v1";
-    private static String authToken = null;
+    private static final ThreadLocal<String> threadAuthToken = new ThreadLocal<>() {
+    };
 
     @SneakyThrows
     public static JsonObject login(String username, String password) {
@@ -32,7 +34,7 @@ public class BaseService {
         response = postAuth("/auth", bodyJson);
         String jsonString = response.body().string();
         responseJson = JsonParser.parseString(jsonString).getAsJsonObject();
-        authToken = responseJson.get("auth_token").getAsString();
+        threadAuthToken.set(responseJson.get("auth_token").getAsString());
         return responseJson;
     }
 
@@ -40,8 +42,16 @@ public class BaseService {
         Response response = postAuth("/auth/register", user);
         String jsonString = getJsonStringFromResponse(response);
         user = Parser.parse(jsonString, User.class);
-        authToken = user.getAuthToken();
+        threadAuthToken.set(user.getAuthToken());
+        dismissNewsletterRequest();
         return user;
+    }
+
+    public static void dismissNewsletterRequest() {
+        MapBuilder<String, Object> bodyParams = new MapBuilder<>(true);
+        bodyParams.put("key", "dont_ask_premise_newsletter");
+        bodyParams.put("value", true);
+        post("/user-storage", bodyParams.build());
     }
 
     @SneakyThrows
@@ -53,7 +63,7 @@ public class BaseService {
                 .url(BASE_URL + url)
                 .post(body)
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + authToken)
+                .addHeader("Authorization", "Bearer " + threadAuthToken.get())
                 .build();
         Response response = client.newCall(request).execute();
 
@@ -89,7 +99,25 @@ public class BaseService {
                 .url(BASE_URL + url)
                 .patch(body)
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + authToken)
+                .addHeader("Authorization", "Bearer " + threadAuthToken.get())
+                .build();
+        Response response = client.newCall(request).execute();
+        if (!response.isSuccessful()) {
+            throw new Error("HTTP error code " + response.code());
+        }
+        return response;
+    }
+
+    @SneakyThrows
+    public static Response put(String url, Object object) {
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(new Gson().toJson(object), mediaType);
+        Request request = new Request.Builder()
+                .url(BASE_URL + url)
+                .put(body)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + threadAuthToken.get())
                 .build();
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {
@@ -105,7 +133,7 @@ public class BaseService {
                 .url(BASE_URL + url + objectId)
                 .delete()
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + authToken)
+                .addHeader("Authorization", "Bearer " + threadAuthToken.get())
                 .build();
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {

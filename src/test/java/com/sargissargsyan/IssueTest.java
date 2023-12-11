@@ -3,7 +3,6 @@ package com.sargissargsyan;
 import com.sargissargsyan.api.BaseService;
 import com.sargissargsyan.api.IssueService;
 import com.sargissargsyan.api.ProjectService;
-import com.google.gson.JsonObject;
 import com.sargissargsyan.models.Issue;
 import com.sargissargsyan.models.Project;
 import com.sargissargsyan.models.User;
@@ -17,17 +16,14 @@ import com.sargissargsyan.utils.TestUtils;
  * @project test-data-preparation
  */
 public class IssueTest extends SeleniumBase {
-    private String name;
-    private String username;
-    private String email ;
-    private String password = "Armenia2022";
+    private final String password = "Armenia2022";
     private User newUser;
 
     @BeforeMethod
     public void setup() {
-        name = TestUtils.randomString(5);
-        username = TestUtils.randomString(7);
-        email = TestUtils.randomEmail(username);
+        String name = TestUtils.randomString(5);
+        String username = TestUtils.randomString(7);
+        String email = TestUtils.randomEmail(username);
         newUser = User.builder()
                 .fullName(name)
                 .username(username)
@@ -42,7 +38,7 @@ public class IssueTest extends SeleniumBase {
     @Test
     public void issuePageNewStatus() {
         LoginPage loginPage = new LoginPage().open();
-        loginPage.login(username, password);
+        loginPage.login(newUser.getUsername(), password);
 
         ProjectsPage projectsPage = new ProjectsPage().open();
         NewProjectPage newProjectPage = projectsPage.clickNewProjectButton();

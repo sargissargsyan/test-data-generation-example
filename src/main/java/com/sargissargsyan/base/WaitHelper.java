@@ -20,17 +20,17 @@ public class WaitHelper {
     }
 
     public void waitForElementToBeVisible(By location) {
-        new WebDriverWait(DriverHelper.get().getDriver(), Duration.ofSeconds(10))
+        new WebDriverWait(DriverHelper.get().getDriver(), Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOfElementLocated(location));
     }
 
     public void waitForElementToBeInVisible(By location) {
-        new WebDriverWait(DriverHelper.get().getDriver(), Duration.ofSeconds(10))
+        new WebDriverWait(DriverHelper.get().getDriver(), Duration.ofSeconds(20))
                 .until(ExpectedConditions.invisibilityOfElementLocated(location));
     }
 
     public WebElement waitForElementToBeVisible(WebElement element) {
-       return new WebDriverWait(DriverHelper.get().getDriver(), Duration.ofSeconds(10))
+       return new WebDriverWait(DriverHelper.get().getDriver(), Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
