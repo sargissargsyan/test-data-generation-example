@@ -64,6 +64,7 @@ public class IssueTest extends SeleniumBase {
         login(newUser.getEmail(), password);
         IssuePage issuePage = new IssuePage(newIssue).open();
 
+        //do checks
     }
 
 

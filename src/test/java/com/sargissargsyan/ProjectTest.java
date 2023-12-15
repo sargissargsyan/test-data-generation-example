@@ -21,6 +21,7 @@ public class ProjectTest extends SeleniumBase {
     private String email;
     private String password = "Armenia2024";
     private User newUser;
+    private Project newProject;
 
     @BeforeMethod
     public void setup() {
@@ -40,7 +41,9 @@ public class ProjectTest extends SeleniumBase {
 
     @AfterMethod
     public void cleanup() {
-
+        if (newProject != null) {
+            ProjectService.deleteProject(newProject);
+        }
     }
 
 
@@ -63,12 +66,8 @@ public class ProjectTest extends SeleniumBase {
     public void projectPageWithData() {
         Project newProject = ProjectService.createProject();
         login(newUser.getEmail(), password);
-
         ProjectPage projectsPage = new ProjectPage(newProject).open();
 
-        ProjectService.deleteProject(newProject);
-
-
-
+        //do checks
     }
 }
