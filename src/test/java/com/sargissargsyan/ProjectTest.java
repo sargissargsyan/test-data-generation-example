@@ -2,14 +2,13 @@ package com.sargissargsyan;
 
 import com.sargissargsyan.api.BaseService;
 import com.sargissargsyan.api.ProjectService;
-import com.google.gson.JsonObject;
 import com.sargissargsyan.models.Project;
 import com.sargissargsyan.models.User;
 import com.sargissargsyan.pages.*;
+import com.sargissargsyan.utils.TestUtils;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import com.sargissargsyan.utils.TestUtils;
 
 /**
  * @author sargis on 12/9/23
@@ -19,7 +18,7 @@ public class ProjectTest extends SeleniumBase {
     private String name;
     private String username;
     private String email;
-    private String password = "Armenia2024";
+    private final String password = "Armenia2024";
     private User newUser;
     private Project newProject;
 

@@ -2,10 +2,10 @@ package com.sargissargsyan;
 
 import com.sargissargsyan.api.BaseService;
 import com.sargissargsyan.models.User;
+import com.sargissargsyan.pages.LoginPage;
 import com.sargissargsyan.utils.TestUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import com.sargissargsyan.pages.LoginPage;
 
 /**
  * @author sargis on 12/9/23
@@ -15,7 +15,7 @@ public class LoginTest extends SeleniumBase {
     private String name;
     private String username;
     private String email;
-    private String password = "Armenia2023";
+    private final String password = "Armenia2023";
     private User newUser;
     @BeforeMethod
     public void setup() {

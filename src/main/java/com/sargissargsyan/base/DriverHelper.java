@@ -14,7 +14,7 @@ public class DriverHelper {
     }
 
     public static WebDriver driver;
-    private static ThreadLocal<WebDriver> driverThread = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driverThread = new ThreadLocal<>();
     private ChromeOptions options;
 
     public WebDriver getDriver() {

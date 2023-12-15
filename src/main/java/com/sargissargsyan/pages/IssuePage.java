@@ -1,7 +1,6 @@
 package com.sargissargsyan.pages;
 
 import com.sargissargsyan.base.BasePage;
-import com.google.gson.JsonObject;
 import com.sargissargsyan.models.Issue;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
  * @project test-data-preparation
  */
 public class IssuePage extends BasePage<IssuePage> {
-    private String projectId ="";
+    private final String projectId = "";
 
     @FindBy(css = ".detail-status-inner")
     private WebElement issueStatus;

@@ -1,11 +1,11 @@
 package com.sargissargsyan;
 
+import com.google.gson.JsonObject;
 import com.sargissargsyan.api.BaseService;
 import com.sargissargsyan.base.DriverHelper;
-import com.google.gson.JsonObject;
+import com.sargissargsyan.pages.LoginPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.AfterMethod;
-import com.sargissargsyan.pages.LoginPage;
 
 /**
  * @author sargis on 12/9/23

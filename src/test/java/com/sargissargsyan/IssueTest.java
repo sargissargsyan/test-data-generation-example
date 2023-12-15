@@ -7,9 +7,9 @@ import com.sargissargsyan.models.Issue;
 import com.sargissargsyan.models.Project;
 import com.sargissargsyan.models.User;
 import com.sargissargsyan.pages.*;
+import com.sargissargsyan.utils.TestUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import com.sargissargsyan.utils.TestUtils;
 
 /**
  * @author sargis on 12/9/23

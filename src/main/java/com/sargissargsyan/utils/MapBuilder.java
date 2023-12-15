@@ -9,8 +9,8 @@ import java.util.Map;
  */
 public class MapBuilder<K, V> {
 
-    private Map<K, V> map;
-    private boolean acceptNull;
+    private final Map<K, V> map;
+    private final boolean acceptNull;
 
     public MapBuilder(boolean acceptNull) {
         this.acceptNull = acceptNull;

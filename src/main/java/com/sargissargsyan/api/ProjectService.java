@@ -1,7 +1,5 @@
 package com.sargissargsyan.api;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sargissargsyan.models.Project;
 import com.sargissargsyan.utils.Parser;
 import com.sargissargsyan.utils.TestUtils;

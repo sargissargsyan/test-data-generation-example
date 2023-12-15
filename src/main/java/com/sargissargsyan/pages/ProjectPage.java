@@ -1,7 +1,6 @@
 package com.sargissargsyan.pages;
 
 import com.sargissargsyan.base.BasePage;
-import com.google.gson.JsonObject;
 import com.sargissargsyan.models.Project;
 
 /**
@@ -9,7 +8,7 @@ import com.sargissargsyan.models.Project;
  * @project test-data-preparation
  */
 public class ProjectPage extends BasePage<ProjectPage> {
-    private Project project;
+    private final Project project;
     public ProjectPage(Project project) {
         this.project = project;
     }
